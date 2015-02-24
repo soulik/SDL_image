@@ -11,6 +11,8 @@ other/*
 build/*
 external/jpeg-9/build/*
 external/libpng-1.6.2/build/*
+external/libwebp-0.3.0/build/*
+external/tiff-4.0.3/build/*
 external/zlib-1.2.8/build/*
 autom4te*
 config.cache
