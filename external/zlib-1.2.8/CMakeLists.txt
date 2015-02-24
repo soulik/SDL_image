@@ -84,6 +84,7 @@ configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/zlib.pc.cmakein
 configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/zconf.h.cmakein
 		${CMAKE_CURRENT_BINARY_DIR}/zconf.h @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR})
+configure_file(	${CMAKE_CURRENT_SOURCE_DIR}/zlib.h ${CMAKE_CURRENT_BINARY_DIR}/zlib.h @ONLY)
 
 
 #============================================================================
