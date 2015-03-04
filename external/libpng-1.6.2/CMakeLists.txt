@@ -40,7 +40,15 @@ set(PNGLIB_NAME libpng${PNGLIB_MAJOR}${PNGLIB_MINOR})
 set(PNGLIB_VERSION ${PNGLIB_MAJOR}.${PNGLIB_MINOR}.${PNGLIB_RELEASE})
 
 # needed packages
-find_package(ZLIB REQUIRED)
+# find_package(ZLIB REQUIRED)
+
+# Zlib
+
+if (NOT TARGET zlib)
+	add_subdirectory(../zlib-1.2.8 "${CMAKE_CURRENT_BINARY_DIR}/zlib-1.2.8")
+endif()
+set(ZLIB_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/zlib-1.2.8)
+set(ZLIB_LIBRARY zlib)
 include_directories(${ZLIB_INCLUDE_DIR})
 
 if(NOT WIN32)
@@ -70,6 +78,11 @@ else()
 endif()
 
 option(PNG_TESTS  "Build libpng tests" YES)
+
+option(PNG_INSTALL  "Install library" NO)
+if(NOT SKIP_INSTALL_ALL)
+	set(SKIP_INSTALL_ALL ON)
+endif()
 
 # Many more configuration options could be added here
 option(PNG_DEBUG         "Build with debug output" NO)
