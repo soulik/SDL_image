@@ -60,12 +60,25 @@ if(SDLIMAGE_SUPPORT_JPEG)
 endif()
 
 if(SDLIMAGE_SUPPORT_PNG)
+	set(PNG_SHARED ON)
 	add_subdirectory(external/libpng-1.6.2)
 	include_directories(external/libpng-1.6.2)
 	add_definitions(-DLOAD_PNG)
 	add_definitions(-DLOAD_PNG_DYNAMIC="libpng16.dll")
 	add_definitions(-DPNG_USE_DLL)
 	add_definitions(-DZLIB_DLL)
+	set_target_properties(${PNG_LIB_NAME}
+	    PROPERTIES
+	    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+	    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+	    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+	)
+	set_target_properties(zlib
+	    PROPERTIES
+	    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+	    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+	    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+	)
 endif()
 
 if(SDLIMAGE_SUPPORT_TIFF)
