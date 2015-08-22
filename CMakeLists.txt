@@ -1,10 +1,11 @@
 cmake_minimum_required (VERSION 3.1.0)
 project (SDLIMAGE)
 
+list(APPEND CMAKE_MODULE_PATH "${SDLIMAGE_SOURCE_DIR}/cmake")
+
 include(CheckLibraryExists)
 include(CheckIncludeFiles)
 include(CheckIncludeFile)
-set(CMAKE_MODULE_PATH "${SDLIMAGE_SOURCE_DIR}/cmake")
 
 find_package(SDL2 REQUIRED)
 
@@ -67,7 +68,7 @@ if(SDLIMAGE_SUPPORT_PNG)
 	add_definitions(-DLOAD_PNG_DYNAMIC="libpng16.dll")
 	add_definitions(-DPNG_USE_DLL)
 	add_definitions(-DZLIB_DLL)
-	set_target_properties(${PNG_LIB_NAME}
+	set_target_properties("${PNG_LIB_TARGETS}"
 	    PROPERTIES
 	    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
 	    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
@@ -85,6 +86,7 @@ if(SDLIMAGE_SUPPORT_TIFF)
 	add_subdirectory(external/tiff-4.0.3)
 	include_directories(external/tiff-4.0.3/libtiff)
 	include_directories("${CMAKE_BINARY_DIR}/external/tiff-4.0.3/libtiff")
+	include_directories("${CMAKE_CURRENT_BINARY_DIR}/external/tiff-4.0.3/libtiff")
 	add_definitions(-DLOAD_TIF)
 	add_definitions(-DLOAD_TIF_DYNAMIC="libtiff-5.dll")
 endif()
@@ -124,6 +126,8 @@ include_directories(./)
 add_library(SDLIMAGE SHARED
 	${SDLIMAGE_SOURCES}
 )
+
+add_dependencies(SDLIMAGE SDL2)
 
 set_target_properties(SDLIMAGE
     PROPERTIES

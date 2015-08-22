@@ -157,6 +157,7 @@ unset(PNG_LIB_TARGETS)
 if(PNG_SHARED)
   add_library(${PNG_LIB_NAME} SHARED ${libpng_sources})
   set(PNG_LIB_TARGETS ${PNG_LIB_NAME})
+  set(PNG_LIB_TARGETS ${PNG_LIB_NAME} PARENT_SCOPE)
   if(MSVC)
     # msvc does not append 'lib' - do it here to have consistent name
     set_target_properties(${PNG_LIB_NAME} PROPERTIES PREFIX "lib")
