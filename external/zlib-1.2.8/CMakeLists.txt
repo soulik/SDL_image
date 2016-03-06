@@ -149,6 +149,14 @@ if(CMAKE_COMPILER_IS_GNUCC)
 endif()
 
 if(MSVC)
+	add_definitions(-DZLIB_WINAPI)
+	list(APPEND ZLIB_SRCS
+		contrib/masmx64/inffas8664.c
+		contrib/minizip/ioapi.c
+		contrib/minizip/iowin32.c
+		contrib/minizip/unzip.c
+	)
+
     if(ASM686)
 		ENABLE_LANGUAGE(ASM_MASM)
         set(ZLIB_ASMS
@@ -161,6 +169,7 @@ if(MSVC)
 			contrib/masmx64/gvmat64.asm
 			contrib/masmx64/inffasx64.asm
 		)
+		add_definitions(-DWIN64)
     endif()
 
 	if(ZLIB_ASMS)
